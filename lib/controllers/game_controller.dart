@@ -15,34 +15,28 @@ abstract class _GameController with Store {
   @observable
   CardModel? lastFlippedCard;
 
-  @action
-  setLastFlippedCard(CardModel card) => lastFlippedCard = card;
+  @observable
+  bool isChecking = false;
 
   @action
   checkCards(CardModel cardItem) async {
-    if (!haveAFlippedUnmatchedCard()) {
-      cardItem.setIsFlipped(true);
-      setLastFlippedCard(cardItem);
+    if (isChecking || cardItem.isFlipped) return;
+    isChecking = true;
+    cardItem.setIsFlipped(true);
+    if (lastFlippedCard == null) {
+      lastFlippedCard = cardItem;
+      isChecking = false;
       return;
     }
-    cardItem.setIsFlipped(true);
-    await Future.delayed(Duration(seconds: 1));
-    if (lastFlippedCard!.icon == cardItem.icon) {
-      cardItem.setIsMatched(true);
-      lastFlippedCard!.setIsMatched(true);
-    } else {
+
+    await Future.delayed(Duration(milliseconds: 800));
+
+    if (lastFlippedCard!.icon != cardItem.icon) {
       lastFlippedCard!.isFlipped = false;
       cardItem.isFlipped = false;
     }
-  }
-
-  bool haveAFlippedUnmatchedCard() {
-    for (CardModel card in cards) {
-      if (card.isFlipped && !card.isMatched) {
-        return true;
-      }
-    }
-    return false;
+    lastFlippedCard = null;
+    isChecking = false;
   }
 }
 

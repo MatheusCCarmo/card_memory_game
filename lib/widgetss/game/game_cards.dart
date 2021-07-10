@@ -24,7 +24,9 @@ class GameCards extends StatelessWidget {
             ),
             itemCount: controller.cards.length,
             itemBuilder: (context, index) {
-              return CardWidget(card: controller.cards[index]);
+              return CardWidget(
+                card: controller.cards[index],
+              );
             },
           ),
         );

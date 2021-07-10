@@ -39,6 +39,21 @@ mixin _$GameController on _GameController, Store {
     });
   }
 
+  final _$isCheckingAtom = Atom(name: '_GameController.isChecking');
+
+  @override
+  bool get isChecking {
+    _$isCheckingAtom.reportRead();
+    return super.isChecking;
+  }
+
+  @override
+  set isChecking(bool value) {
+    _$isCheckingAtom.reportWrite(value, super.isChecking, () {
+      super.isChecking = value;
+    });
+  }
+
   final _$checkCardsAsyncAction = AsyncAction('_GameController.checkCards');
 
   @override
@@ -46,25 +61,12 @@ mixin _$GameController on _GameController, Store {
     return _$checkCardsAsyncAction.run(() => super.checkCards(cardItem));
   }
 
-  final _$_GameControllerActionController =
-      ActionController(name: '_GameController');
-
-  @override
-  dynamic setLastFlippedCard(CardModel card) {
-    final _$actionInfo = _$_GameControllerActionController.startAction(
-        name: '_GameController.setLastFlippedCard');
-    try {
-      return super.setLastFlippedCard(card);
-    } finally {
-      _$_GameControllerActionController.endAction(_$actionInfo);
-    }
-  }
-
   @override
   String toString() {
     return '''
 cards: ${cards},
-lastFlippedCard: ${lastFlippedCard}
+lastFlippedCard: ${lastFlippedCard},
+isChecking: ${isChecking}
     ''';
   }
 }
