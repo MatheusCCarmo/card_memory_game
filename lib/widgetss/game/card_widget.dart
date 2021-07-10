@@ -18,7 +18,6 @@ class CardWidget extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             // controller.flipCard(card);
-            card.setIsFlipped(true);
             controller.checkCards(card);
           },
           child: AnimatedContainer(

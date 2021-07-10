@@ -39,15 +39,22 @@ mixin _$GameController on _GameController, Store {
     });
   }
 
+  final _$checkCardsAsyncAction = AsyncAction('_GameController.checkCards');
+
+  @override
+  Future checkCards(CardModel cardItem) {
+    return _$checkCardsAsyncAction.run(() => super.checkCards(cardItem));
+  }
+
   final _$_GameControllerActionController =
       ActionController(name: '_GameController');
 
   @override
-  dynamic checkCards(CardModel cardItem) {
+  dynamic setLastFlippedCard(CardModel card) {
     final _$actionInfo = _$_GameControllerActionController.startAction(
-        name: '_GameController.checkCards');
+        name: '_GameController.setLastFlippedCard');
     try {
-      return super.checkCards(cardItem);
+      return super.setLastFlippedCard(card);
     } finally {
       _$_GameControllerActionController.endAction(_$actionInfo);
     }

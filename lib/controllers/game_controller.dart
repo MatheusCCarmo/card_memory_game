@@ -16,17 +16,18 @@ abstract class _GameController with Store {
   CardModel? lastFlippedCard;
 
   @action
-  checkCards(CardModel cardItem) {
-    if (!haveAFlippedUnmatchedCard()) {
-      lastFlippedCard = cardItem;
-      return;
-    }
-    if (lastFlippedCard == null) {
-      print('TA NULO');
-      return;
-    }
+  setLastFlippedCard(CardModel card) => lastFlippedCard = card;
 
-    if (lastFlippedCard == cardItem) {
+  @action
+  checkCards(CardModel cardItem) async {
+    if (!haveAFlippedUnmatchedCard()) {
+      cardItem.setIsFlipped(true);
+      setLastFlippedCard(cardItem);
+      return;
+    }
+    cardItem.setIsFlipped(true);
+    await Future.delayed(Duration(seconds: 1));
+    if (lastFlippedCard!.icon == cardItem.icon) {
       cardItem.setIsMatched(true);
       lastFlippedCard!.setIsMatched(true);
     } else {
