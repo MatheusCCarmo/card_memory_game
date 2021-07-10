@@ -5,6 +5,19 @@ class CardRearWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            offset: Offset(4, 4),
+            blurRadius: 4,
+            spreadRadius: 2,
+          )
+        ],
+      ),
+    );
   }
 }

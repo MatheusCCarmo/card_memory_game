@@ -23,27 +23,13 @@ class CardWidget extends StatelessWidget {
           onTap: () {
             controller.checkCards(card);
           },
-          child: AnimatedContainer(
-            duration: Duration(milliseconds: 200),
-            decoration: BoxDecoration(
-                color: card.isFlipped ? Colors.amber : Colors.blue,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    offset: Offset(4, 4),
-                    blurRadius: 4,
-                    spreadRadius: 2,
-                  )
-                ]),
-            child: GridTile(
-              child: Center(
-                child: AnimatedSwitcher(
-                  duration: Duration(milliseconds: 200),
-                  child: card.isFlipped
-                      ? CardFrontWidget(icon: card.icon)
-                      : CardRearWidget(),
-                ),
+          child: GridTile(
+            child: Center(
+              child: AnimatedSwitcher(
+                duration: Duration(milliseconds: 200),
+                child: card.isFlipped
+                    ? CardFrontWidget(icon: card.icon)
+                    : CardRearWidget(),
               ),
             ),
           ),

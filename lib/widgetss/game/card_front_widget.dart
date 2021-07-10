@@ -7,9 +7,23 @@ class CardFrontWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Icon(
-        icon,
-        size: 60,
+      decoration: BoxDecoration(
+        color: Colors.amber,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            offset: Offset(4, 4),
+            blurRadius: 4,
+            spreadRadius: 2,
+          )
+        ],
+      ),
+      child: Center(
+        child: Icon(
+          icon,
+          size: 60,
+        ),
       ),
     );
   }
