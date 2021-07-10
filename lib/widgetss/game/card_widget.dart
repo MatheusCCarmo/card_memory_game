@@ -14,7 +14,7 @@ class CardWidget extends StatelessWidget {
     final controller = Provider.of<GameController>(context);
 
     return Observer(
-      builder: (context) {
+      builder: (_) {
         return GestureDetector(
           onTap: () {
             // controller.flipCard(card);
@@ -38,7 +38,7 @@ class CardWidget extends StatelessWidget {
               child: Center(
                 child: Column(
                   children: [
-                    Text(card.isFlipped.toString()),
+                    // Text(controller.getCard(card).isFlipped.toString()),
                     Icon(card.icon),
                   ],
                 ),

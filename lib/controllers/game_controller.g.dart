@@ -24,26 +24,30 @@ mixin _$GameController on _GameController, Store {
     });
   }
 
+  final _$lastFlippedCardAtom = Atom(name: '_GameController.lastFlippedCard');
+
+  @override
+  CardModel? get lastFlippedCard {
+    _$lastFlippedCardAtom.reportRead();
+    return super.lastFlippedCard;
+  }
+
+  @override
+  set lastFlippedCard(CardModel? value) {
+    _$lastFlippedCardAtom.reportWrite(value, super.lastFlippedCard, () {
+      super.lastFlippedCard = value;
+    });
+  }
+
   final _$_GameControllerActionController =
       ActionController(name: '_GameController');
 
   @override
-  dynamic flipCard(CardModel card) {
-    final _$actionInfo = _$_GameControllerActionController.startAction(
-        name: '_GameController.flipCard');
-    try {
-      return super.flipCard(card);
-    } finally {
-      _$_GameControllerActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic checkCards(CardModel card2) {
+  dynamic checkCards(CardModel cardItem) {
     final _$actionInfo = _$_GameControllerActionController.startAction(
         name: '_GameController.checkCards');
     try {
-      return super.checkCards(card2);
+      return super.checkCards(cardItem);
     } finally {
       _$_GameControllerActionController.endAction(_$actionInfo);
     }
@@ -52,7 +56,8 @@ mixin _$GameController on _GameController, Store {
   @override
   String toString() {
     return '''
-cards: ${cards}
+cards: ${cards},
+lastFlippedCard: ${lastFlippedCard}
     ''';
   }
 }
