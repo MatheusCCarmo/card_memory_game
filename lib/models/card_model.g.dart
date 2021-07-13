@@ -24,6 +24,21 @@ mixin _$CardModel on _CardModel, Store {
     });
   }
 
+  final _$isMatchedAtom = Atom(name: '_CardModel.isMatched');
+
+  @override
+  bool get isMatched {
+    _$isMatchedAtom.reportRead();
+    return super.isMatched;
+  }
+
+  @override
+  set isMatched(bool value) {
+    _$isMatchedAtom.reportWrite(value, super.isMatched, () {
+      super.isMatched = value;
+    });
+  }
+
   final _$_CardModelActionController = ActionController(name: '_CardModel');
 
   @override
@@ -38,9 +53,21 @@ mixin _$CardModel on _CardModel, Store {
   }
 
   @override
+  dynamic setIsMatched(bool value) {
+    final _$actionInfo = _$_CardModelActionController.startAction(
+        name: '_CardModel.setIsMatched');
+    try {
+      return super.setIsMatched(value);
+    } finally {
+      _$_CardModelActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-isFlipped: ${isFlipped}
+isFlipped: ${isFlipped},
+isMatched: ${isMatched}
     ''';
   }
 }

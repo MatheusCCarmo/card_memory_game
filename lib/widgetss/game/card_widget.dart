@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:card_memory_game/controllers/game_controller.dart';
 import 'package:card_memory_game/models/card_model.dart';
 import 'package:card_memory_game/widgetss/game/card_front_widget.dart';
@@ -15,8 +17,6 @@ class CardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Provider.of<GameController>(context);
 
-    // Tween<Widget> _flipTween = Tween<Widget>(begin: unflipped, end: flipped);
-
     return Observer(
       builder: (_) {
         return GestureDetector(
@@ -25,11 +25,21 @@ class CardWidget extends StatelessWidget {
           },
           child: GridTile(
             child: Center(
-              child: AnimatedSwitcher(
+              child: AnimatedContainer(
                 duration: Duration(milliseconds: 200),
                 child: card.isFlipped
-                    ? CardFrontWidget(icon: card.icon)
-                    : CardRearWidget(),
+                    ? Transform(
+                        transform: Matrix4.identity()
+                          ..setEntry(3, 2, 0.001)
+                          ..rotateY(pi),
+                        alignment: Alignment.center,
+                        child: CardFrontWidget(icon: card.icon))
+                    : Transform(
+                        transform: Matrix4.identity()
+                          ..setEntry(3, 2, 0.001)
+                          ..rotateY(0),
+                        alignment: Alignment.center,
+                        child: CardRearWidget()),
               ),
             ),
           ),
