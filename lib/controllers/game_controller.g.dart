@@ -153,6 +153,17 @@ mixin _$GameController on _GameController, Store {
   }
 
   @override
+  dynamic reset() {
+    final _$actionInfo = _$_GameControllerActionController.startAction(
+        name: '_GameController.reset');
+    try {
+      return super.reset();
+    } finally {
+      _$_GameControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 cards: ${cards},

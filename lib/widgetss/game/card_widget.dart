@@ -18,31 +18,31 @@ class CardWidget extends StatelessWidget {
     final controller = Provider.of<GameController>(context);
 
     return Observer(
-      builder: (_) {
+      builder: (context) {
         return GestureDetector(
           onTap: () {
             controller.checkCards(card);
           },
-          child: GridTile(
-            child: Center(
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: 200),
-                child: card.isFlipped
-                    ? Transform(
-                        transform: Matrix4.identity()
-                          ..setEntry(3, 2, 0.001)
-                          ..rotateY(pi),
-                        alignment: Alignment.center,
-                        child: CardFrontWidget(icon: card.icon))
-                    : Transform(
-                        transform: Matrix4.identity()
-                          ..setEntry(3, 2, 0.001)
-                          ..rotateY(0),
-                        alignment: Alignment.center,
-                        child: CardRearWidget()),
+          child: AnimatedSwitcher(
+              switchInCurve: Curves.decelerate,
+              switchOutCurve: Curves.easeIn,
+              duration: Duration(milliseconds: 250),
+              child: card.isFlipped
+                  ? CardFrontWidget(icon: card.icon)
+                  : CardRearWidget()
+              // ? Transform(
+              //     transform: Matrix4.identity()
+              //       ..setEntry(3, 2, 0.001)
+              //       ..rotateY(pi),
+              //     alignment: Alignment.center,
+              //     child: CardFrontWidget(icon: card.icon))
+              // : Transform(
+              //     transform: Matrix4.identity()
+              //       ..setEntry(3, 2, 0.001)
+              //       ..rotateY(0),
+              //     alignment: Alignment.center,
+              //     child: CardRearWidget()),
               ),
-            ),
-          ),
         );
       },
     );

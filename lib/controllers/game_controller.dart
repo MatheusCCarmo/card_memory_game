@@ -10,10 +10,6 @@ class GameController = _GameController with _$GameController;
 abstract class _GameController with Store {
   @observable
   ObservableList<CardModel> cards = <CardModel>[].asObservable();
-  // List.generate(
-  //   sportsIcons.length * 2,
-  //   (index) => CardModel(icon: sportsIcons[index ~/ 2]),
-  // ).asObservable();
 
   @observable
   CardModel? lastFlippedCard;
@@ -54,25 +50,20 @@ abstract class _GameController with Store {
 
   @action
   start() {
-    // generateIcons();
     CardsIcons cardsIcons = themeIcons;
     cards = List.generate(
-      cardsQuantity! * 2,
+      cardsQuantity!,
       (index) => CardModel(icon: cardsIcons.icons[index ~/ 2]),
     ).asObservable();
     shuffle();
   }
 
-  // List generateIcons() {
-  //   switch (theme) {
-  //     case GameThemes.sports:
-  //       return sportsIcons;
-  //     case GameThemes.transport:
-  //       return transportIcons;
-  //     default:
-  //       return [];
-  //   }
-  // }
+  @action
+  reset() {
+    cards = <CardModel>[].asObservable();
+    cardsQuantity = null;
+    theme = null;
+  }
 
   @action
   checkCards(CardModel cardItem) async {
@@ -139,38 +130,11 @@ class TransportIcons extends CardsIcons {
     Icons.motorcycle,
     Icons.airplanemode_active,
     Icons.traffic_rounded,
-    Icons.sports_motorsports_rounded,
-    Icons.sports_hockey,
-    Icons.sports_mma_rounded,
+    Icons.ac_unit,
+    Icons.access_alarm,
+    Icons.access_time_filled,
   ];
 
   @override
   get icons => _icons;
 }
-
-
-// List<IconData> sportsIcons = [
-//   Icons.sports_baseball,
-//   Icons.sports_cricket,
-//   Icons.sports_basketball,
-//   Icons.sports_football_rounded,
-//   Icons.sports_soccer_rounded,
-//   Icons.sports_tennis_rounded,
-//   Icons.sports_volleyball_sharp,
-//   Icons.sports_motorsports_rounded,
-//   Icons.sports_hockey,
-//   Icons.sports_mma_rounded,
-// ];
-
-// List<IconData> transportIcons = [
-//   Icons.drive_eta,
-//   Icons.bike_scooter,
-//   Icons.train,
-//   Icons.subway,
-//   Icons.motorcycle,
-//   Icons.airplanemode_active,
-//   Icons.traffic_rounded,
-//   Icons.sports_motorsports_rounded,
-//   Icons.sports_hockey,
-//   Icons.sports_mma_rounded,
-// ];

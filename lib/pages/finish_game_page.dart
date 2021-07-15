@@ -1,11 +1,15 @@
+import 'package:card_memory_game/controllers/game_controller.dart';
 import 'package:card_memory_game/widgetss/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FinishGamePage extends StatelessWidget {
   const FinishGamePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final controller = Provider.of<GameController>(context);
+
     return Scaffold(
       body: Container(
         child: Column(
@@ -20,11 +24,18 @@ class FinishGamePage extends StatelessWidget {
               children: [
                 CustomButton(
                   title: 'Recomeçar',
-                  onTap: () {},
+                  onTap: () {
+                    controller.start();
+                    Navigator.of(context)
+                        .pushReplacementNamed('/game_cards_page');
+                  },
                 ),
                 CustomButton(
-                  title: 'Mudar Tema',
-                  onTap: () {},
+                  title: 'Menu Principal',
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushReplacementNamed('/start_game_page');
+                  },
                 ),
               ],
             )
