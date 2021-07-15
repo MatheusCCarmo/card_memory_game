@@ -9,6 +9,13 @@ part of 'game_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$GameController on _GameController, Store {
+  Computed<dynamic>? _$themeIconsComputed;
+
+  @override
+  dynamic get themeIcons =>
+      (_$themeIconsComputed ??= Computed<dynamic>(() => super.themeIcons,
+              name: '_GameController.themeIcons'))
+          .value;
   Computed<bool>? _$hasWonComputed;
 
   @override
@@ -135,6 +142,17 @@ mixin _$GameController on _GameController, Store {
   }
 
   @override
+  dynamic start() {
+    final _$actionInfo = _$_GameControllerActionController.startAction(
+        name: '_GameController.start');
+    try {
+      return super.start();
+    } finally {
+      _$_GameControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 cards: ${cards},
@@ -142,6 +160,7 @@ lastFlippedCard: ${lastFlippedCard},
 isChecking: ${isChecking},
 cardsQuantity: ${cardsQuantity},
 theme: ${theme},
+themeIcons: ${themeIcons},
 hasWon: ${hasWon}
     ''';
   }

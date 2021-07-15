@@ -11,13 +11,12 @@ class GameCardsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<GameController>(context);
-    controller.shuffle();
 
     return Scaffold(
       body: Observer(
         builder: (context) {
           if (controller.hasWon) {
-            return FinishGamePage();
+            Navigator.of(context).pushReplacementNamed('/finish_game_page');
           }
           return Container(
             padding: EdgeInsets.symmetric(horizontal: 10),

@@ -77,10 +77,11 @@ class StartGamePage extends StatelessWidget {
               //         context, '/game_cards_page'),
               //     child: Text('tes'))
               CustomButton(
-                title: 'Começar',
-                onTap: () =>
-                    Navigator.pushReplacementNamed(context, '/game_cards_page'),
-              ),
+                  title: 'Começar',
+                  onTap: () {
+                    controller.start();
+                    Navigator.pushReplacementNamed(context, '/game_cards_page');
+                  }),
             ],
           );
         },

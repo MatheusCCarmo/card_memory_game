@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:card_memory_game/models/card_model.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 part 'game_controller.g.dart';
@@ -10,10 +9,11 @@ class GameController = _GameController with _$GameController;
 
 abstract class _GameController with Store {
   @observable
-  ObservableList<CardModel> cards = List.generate(
-    sportsIcons.length * 2,
-    (index) => CardModel(icon: sportsIcons[index ~/ 2]),
-  ).asObservable();
+  ObservableList<CardModel> cards = <CardModel>[].asObservable();
+  // List.generate(
+  //   sportsIcons.length * 2,
+  //   (index) => CardModel(icon: sportsIcons[index ~/ 2]),
+  // ).asObservable();
 
   @observable
   CardModel? lastFlippedCard;
@@ -26,6 +26,9 @@ abstract class _GameController with Store {
 
   @observable
   GameThemes? theme;
+
+  @computed
+  get themeIcons => themes[theme];
 
   @action
   setCardsQuantity(int newQuantity) => cardsQuantity = newQuantity;
@@ -48,6 +51,28 @@ abstract class _GameController with Store {
       cards[n] = temp;
     }
   }
+
+  @action
+  start() {
+    // generateIcons();
+    CardsIcons cardsIcons = themeIcons;
+    cards = List.generate(
+      cardsQuantity! * 2,
+      (index) => CardModel(icon: cardsIcons.icons[index ~/ 2]),
+    ).asObservable();
+    shuffle();
+  }
+
+  // List generateIcons() {
+  //   switch (theme) {
+  //     case GameThemes.sports:
+  //       return sportsIcons;
+  //     case GameThemes.transport:
+  //       return transportIcons;
+  //     default:
+  //       return [];
+  //   }
+  // }
 
   @action
   checkCards(CardModel cardItem) async {
@@ -76,28 +101,76 @@ abstract class _GameController with Store {
 
 enum GameThemes { sports, transport }
 
-List<IconData> sportsIcons = [
-  Icons.sports_baseball,
-  Icons.sports_cricket,
-  Icons.sports_basketball,
-  Icons.sports_football_rounded,
-  Icons.sports_soccer_rounded,
-  Icons.sports_tennis_rounded,
-  Icons.sports_volleyball_sharp,
-  Icons.sports_motorsports_rounded,
-  Icons.sports_hockey,
-  Icons.sports_mma_rounded,
-];
+abstract class CardsIcons {
+  List<IconData> _icons = [];
 
-List<IconData> transportIcons = [
-  Icons.drive_eta,
-  Icons.bike_scooter,
-  Icons.train,
-  Icons.subway,
-  Icons.motorcycle,
-  Icons.airplanemode_active,
-  Icons.traffic_rounded,
-  Icons.sports_motorsports_rounded,
-  Icons.sports_hockey,
-  Icons.sports_mma_rounded,
-];
+  get icons => _icons;
+}
+
+Map<GameThemes, CardsIcons> themes = {
+  GameThemes.sports: SportsIcons(),
+  GameThemes.transport: TransportIcons(),
+};
+
+class SportsIcons extends CardsIcons {
+  List<IconData> _icons = [
+    Icons.sports_baseball,
+    Icons.sports_cricket,
+    Icons.sports_basketball,
+    Icons.sports_football_rounded,
+    Icons.sports_soccer_rounded,
+    Icons.sports_tennis_rounded,
+    Icons.sports_volleyball_sharp,
+    Icons.sports_motorsports_rounded,
+    Icons.sports_hockey,
+    Icons.sports_mma_rounded,
+  ];
+
+  @override
+  get icons => _icons;
+}
+
+class TransportIcons extends CardsIcons {
+  List<IconData> _icons = [
+    Icons.drive_eta,
+    Icons.bike_scooter,
+    Icons.train,
+    Icons.subway,
+    Icons.motorcycle,
+    Icons.airplanemode_active,
+    Icons.traffic_rounded,
+    Icons.sports_motorsports_rounded,
+    Icons.sports_hockey,
+    Icons.sports_mma_rounded,
+  ];
+
+  @override
+  get icons => _icons;
+}
+
+
+// List<IconData> sportsIcons = [
+//   Icons.sports_baseball,
+//   Icons.sports_cricket,
+//   Icons.sports_basketball,
+//   Icons.sports_football_rounded,
+//   Icons.sports_soccer_rounded,
+//   Icons.sports_tennis_rounded,
+//   Icons.sports_volleyball_sharp,
+//   Icons.sports_motorsports_rounded,
+//   Icons.sports_hockey,
+//   Icons.sports_mma_rounded,
+// ];
+
+// List<IconData> transportIcons = [
+//   Icons.drive_eta,
+//   Icons.bike_scooter,
+//   Icons.train,
+//   Icons.subway,
+//   Icons.motorcycle,
+//   Icons.airplanemode_active,
+//   Icons.traffic_rounded,
+//   Icons.sports_motorsports_rounded,
+//   Icons.sports_hockey,
+//   Icons.sports_mma_rounded,
+// ];
