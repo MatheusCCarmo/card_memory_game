@@ -23,14 +23,15 @@ class StartGamePage extends StatelessWidget {
                 child: RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
-                      text: 'Bem vindo!',
-                      style: Theme.of(context).textTheme.headline1,
-                      children: [
-                        TextSpan(
-                          text: '\nSelecione o tema e a quantidade de cartas!',
-                          style: Theme.of(context).textTheme.headline3,
-                        ),
-                      ]),
+                    text: 'Bem vindo!',
+                    style: Theme.of(context).textTheme.headline1,
+                    children: [
+                      TextSpan(
+                        text: '\nSelecione o tema e a quantidade de cartas!',
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:card_memory_game/models/card_model.dart';
+import 'package:card_memory_game/shared/card_icons.dart';
+import 'package:card_memory_game/shared/game_card_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 part 'game_controller.g.dart';
@@ -24,7 +26,7 @@ abstract class _GameController with Store {
   GameThemes? theme;
 
   @computed
-  get themeIcons => themes[theme];
+  get themeIcons => IconsTheme.themes[theme];
 
   @action
   setCardsQuantity(int newQuantity) => cardsQuantity = newQuantity;
@@ -88,53 +90,4 @@ abstract class _GameController with Store {
     lastFlippedCard = null;
     isChecking = false;
   }
-}
-
-enum GameThemes { sports, transport }
-
-abstract class CardsIcons {
-  List<IconData> _icons = [];
-
-  get icons => _icons;
-}
-
-Map<GameThemes, CardsIcons> themes = {
-  GameThemes.sports: SportsIcons(),
-  GameThemes.transport: TransportIcons(),
-};
-
-class SportsIcons extends CardsIcons {
-  List<IconData> _icons = [
-    Icons.sports_baseball,
-    Icons.sports_cricket,
-    Icons.sports_basketball,
-    Icons.sports_football_rounded,
-    Icons.sports_soccer_rounded,
-    Icons.sports_tennis_rounded,
-    Icons.sports_volleyball_sharp,
-    Icons.sports_motorsports_rounded,
-    Icons.sports_hockey,
-    Icons.sports_mma_rounded,
-  ];
-
-  @override
-  get icons => _icons;
-}
-
-class TransportIcons extends CardsIcons {
-  List<IconData> _icons = [
-    Icons.drive_eta,
-    Icons.bike_scooter,
-    Icons.train,
-    Icons.subway,
-    Icons.motorcycle,
-    Icons.airplanemode_active,
-    Icons.traffic_rounded,
-    Icons.ac_unit,
-    Icons.access_alarm,
-    Icons.access_time_filled,
-  ];
-
-  @override
-  get icons => _icons;
 }
