@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.purple,
+          primarySwatch: Colors.deepOrange,
           textTheme: TextTheme(
             headline1: TextStyle(
               fontSize: 42,

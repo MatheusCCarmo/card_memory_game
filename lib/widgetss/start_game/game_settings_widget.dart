@@ -29,6 +29,7 @@ class GameSettingsWidget extends StatelessWidget {
                     var cardsIcons = IconsTheme.themes[gameTheme] as CardsIcons;
                     var iconsList = cardsIcons.icons;
                     return SettingsOptionWidget(
+                      themeInfo: gameTheme,
                       content: Icon(
                         iconsList[0],
                         size: 60,
@@ -39,51 +40,25 @@ class GameSettingsWidget extends StatelessWidget {
                     );
                   },
                 ),
-                // [
-                //   SettingsOptionWidget(
-                //     content: Icon(
-                //       Icons.sports,
-                //       size: 60,
-                //     ),
-                //     onTap: () {},
-                //   ),
-                // ],
               ),
-              // DropdownButton(
-              //   isExpanded: true,
-              //   hint: Text('Tema'),
-              //   value: controller.theme,
-              //   onChanged: (value) {
-              //     controller.setTheme(value as GameThemes);
-              //   },
-              //   items: [
-              //     DropdownMenuItem(
-              //       value: GameThemes.sports,
-              //       child: Text('Esportes'),
-              //     ),
-              //     DropdownMenuItem(
-              //       value: GameThemes.transport,
-              //       child: Text('Transporte'),
-              //     ),
-              //   ],
-              // ),
-              DropdownButton(
-                isExpanded: true,
-                hint: Text('Quantidade de Cartas'),
-                value: controller.cardsQuantity,
-                onChanged: (value) {
-                  controller.setCardsQuantity(value as int);
-                },
-                items: [
-                  DropdownMenuItem(
-                    value: 10,
-                    child: Text('10'),
-                  ),
-                  DropdownMenuItem(
-                    value: 20,
-                    child: Text('20'),
-                  ),
-                ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: List.generate(
+                  4,
+                  (index) {
+                    return SettingsOptionWidget(
+                      quantityInfo: (index + 2) * 4,
+                      content: Text(
+                        '${(index + 2) * 4}',
+                        style: TextStyle(
+                            fontSize: 36, fontWeight: FontWeight.bold),
+                      ),
+                      onTap: () {
+                        controller.setCardsQuantity((index + 2) * 4);
+                      },
+                    );
+                  },
+                ),
               ),
             ],
           ),

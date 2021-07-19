@@ -13,6 +13,7 @@ class StartGamePage extends StatelessWidget {
 
     return Scaffold(
       body: Container(
+        color: Colors.blue[100],
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
