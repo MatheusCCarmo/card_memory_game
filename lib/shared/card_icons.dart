@@ -10,13 +10,13 @@ class SportsIcons extends CardsIcons {
   List<IconData> _icons = [
     Icons.sports_basketball,
     Icons.sports_mma_rounded,
+    Icons.sports_soccer_rounded,
+    Icons.sports_motorsports_rounded,
+    Icons.sports_football_rounded,
+    Icons.sports_cricket,
     Icons.sports_volleyball_sharp,
     Icons.sports_baseball,
-    Icons.sports_cricket,
-    Icons.sports_football_rounded,
-    Icons.sports_soccer_rounded,
     Icons.sports_tennis_rounded,
-    Icons.sports_motorsports_rounded,
     Icons.sports_hockey,
   ];
 
@@ -45,15 +45,15 @@ class TransportIcons extends CardsIcons {
 class FoodIcons extends CardsIcons {
   List<IconData> _icons = [
     Icons.fastfood,
-    Icons.bakery_dining,
-    Icons.icecream,
+    Icons.local_pizza,
     Icons.cake,
+    Icons.icecream,
     Icons.dinner_dining,
     Icons.set_meal,
     Icons.tapas,
     Icons.lunch_dining,
-    Icons.bento,
-    Icons.local_cafe
+    Icons.bakery_dining,
+    Icons.local_cafe,
   ];
 
   @override
@@ -64,12 +64,12 @@ class BuildingIcons extends CardsIcons {
   List<IconData> _icons = [
     Icons.apartment,
     Icons.business,
+    Icons.bungalow,
     Icons.home,
     Icons.store,
     Icons.account_balance,
-    Icons.festival,
     Icons.local_convenience_store,
-    Icons.bungalow,
+    Icons.festival,
     Icons.holiday_village,
     Icons.villa,
   ];

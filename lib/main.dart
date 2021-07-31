@@ -1,5 +1,4 @@
 import 'package:card_memory_game/controllers/game_controller.dart';
-import 'package:card_memory_game/pages/finish_game_page.dart';
 import 'package:card_memory_game/pages/game_cards_page.dart';
 import 'package:card_memory_game/pages/start_game_page.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +41,6 @@ class MyApp extends StatelessWidget {
         routes: {
           '/start_game_page': (context) => StartGamePage(),
           '/game_cards_page': (context) => GameCardsPage(),
-          '/finish_game_page': (context) => FinishGamePage(),
         },
       ),
     );

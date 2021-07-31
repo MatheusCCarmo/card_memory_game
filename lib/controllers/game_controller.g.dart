@@ -9,6 +9,13 @@ part of 'game_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$GameController on _GameController, Store {
+  Computed<dynamic>? _$correctsComputed;
+
+  @override
+  dynamic get corrects =>
+      (_$correctsComputed ??= Computed<dynamic>(() => super.corrects,
+              name: '_GameController.corrects'))
+          .value;
   Computed<dynamic>? _$themeIconsComputed;
 
   @override
@@ -16,6 +23,13 @@ mixin _$GameController on _GameController, Store {
       (_$themeIconsComputed ??= Computed<dynamic>(() => super.themeIcons,
               name: '_GameController.themeIcons'))
           .value;
+  Computed<dynamic>? _$correctPercentualComputed;
+
+  @override
+  dynamic get correctPercentual => (_$correctPercentualComputed ??=
+          Computed<dynamic>(() => super.correctPercentual,
+              name: '_GameController.correctPercentual'))
+      .value;
   Computed<bool>? _$hasWonComputed;
 
   @override
@@ -71,13 +85,13 @@ mixin _$GameController on _GameController, Store {
   final _$cardsQuantityAtom = Atom(name: '_GameController.cardsQuantity');
 
   @override
-  int? get cardsQuantity {
+  int get cardsQuantity {
     _$cardsQuantityAtom.reportRead();
     return super.cardsQuantity;
   }
 
   @override
-  set cardsQuantity(int? value) {
+  set cardsQuantity(int value) {
     _$cardsQuantityAtom.reportWrite(value, super.cardsQuantity, () {
       super.cardsQuantity = value;
     });
@@ -86,15 +100,30 @@ mixin _$GameController on _GameController, Store {
   final _$themeAtom = Atom(name: '_GameController.theme');
 
   @override
-  GameThemes? get theme {
+  GameThemes get theme {
     _$themeAtom.reportRead();
     return super.theme;
   }
 
   @override
-  set theme(GameThemes? value) {
+  set theme(GameThemes value) {
     _$themeAtom.reportWrite(value, super.theme, () {
       super.theme = value;
+    });
+  }
+
+  final _$missesAtom = Atom(name: '_GameController.misses');
+
+  @override
+  int get misses {
+    _$missesAtom.reportRead();
+    return super.misses;
+  }
+
+  @override
+  set misses(int value) {
+    _$missesAtom.reportWrite(value, super.misses, () {
+      super.misses = value;
     });
   }
 
@@ -131,6 +160,28 @@ mixin _$GameController on _GameController, Store {
   }
 
   @override
+  dynamic incrementMisses() {
+    final _$actionInfo = _$_GameControllerActionController.startAction(
+        name: '_GameController.incrementMisses');
+    try {
+      return super.incrementMisses();
+    } finally {
+      _$_GameControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic resetMisses() {
+    final _$actionInfo = _$_GameControllerActionController.startAction(
+        name: '_GameController.resetMisses');
+    try {
+      return super.resetMisses();
+    } finally {
+      _$_GameControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic shuffle() {
     final _$actionInfo = _$_GameControllerActionController.startAction(
         name: '_GameController.shuffle');
@@ -153,17 +204,6 @@ mixin _$GameController on _GameController, Store {
   }
 
   @override
-  dynamic reset() {
-    final _$actionInfo = _$_GameControllerActionController.startAction(
-        name: '_GameController.reset');
-    try {
-      return super.reset();
-    } finally {
-      _$_GameControllerActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 cards: ${cards},
@@ -171,7 +211,10 @@ lastFlippedCard: ${lastFlippedCard},
 isChecking: ${isChecking},
 cardsQuantity: ${cardsQuantity},
 theme: ${theme},
+misses: ${misses},
+corrects: ${corrects},
 themeIcons: ${themeIcons},
+correctPercentual: ${correctPercentual},
 hasWon: ${hasWon}
     ''';
   }

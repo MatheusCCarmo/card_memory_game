@@ -20,19 +20,43 @@ abstract class _GameController with Store {
   bool isChecking = false;
 
   @observable
-  int? cardsQuantity;
-
-  @observable
-  GameThemes? theme;
-
-  @computed
-  get themeIcons => IconsTheme.themes[theme];
+  int cardsQuantity = 8;
 
   @action
   setCardsQuantity(int newQuantity) => cardsQuantity = newQuantity;
 
+  @observable
+  GameThemes theme = GameThemes.sports;
+
   @action
   setTheme(GameThemes newTheme) => theme = newTheme;
+
+  @observable
+  int misses = 0;
+
+  @action
+  incrementMisses() => misses++;
+
+  @action
+  resetMisses() => misses = 0;
+
+  @computed
+  get corrects =>
+      cards.fold(0, (int correctQnt, card) {
+        if (card.isMatched) {
+          return correctQnt + 1;
+        } else {
+          return correctQnt;
+        }
+      }) ~/
+      2;
+
+  @computed
+  get themeIcons => IconsTheme.themes[theme];
+
+  @computed
+  get correctPercentual =>
+      (100 * corrects / (misses + corrects)).toStringAsFixed(1);
 
   @computed
   bool get hasWon => cards.every((element) => element.isMatched);
@@ -54,21 +78,16 @@ abstract class _GameController with Store {
   start() {
     CardsIcons cardsIcons = themeIcons;
     cards = List.generate(
-      cardsQuantity!,
+      cardsQuantity,
       (index) => CardModel(icon: cardsIcons.icons[index ~/ 2]),
     ).asObservable();
     shuffle();
-  }
-
-  @action
-  reset() {
-    cards = <CardModel>[].asObservable();
-    cardsQuantity = null;
-    theme = null;
+    resetMisses();
   }
 
   @action
   checkCards(CardModel cardItem) async {
+    print(corrects);
     if (isChecking || cardItem.isFlipped) return;
     isChecking = true;
     cardItem.setIsFlipped(true);
@@ -86,6 +105,7 @@ abstract class _GameController with Store {
     } else {
       lastFlippedCard!.setIsFlipped(false);
       cardItem.setIsFlipped(false);
+      incrementMisses();
     }
     lastFlippedCard = null;
     isChecking = false;
